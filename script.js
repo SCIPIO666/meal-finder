@@ -7,6 +7,10 @@ const domElements={
 
 
 }
+
+const NAME_URL="www.themealdb.com/api/json/v1/1/search.php?s=";
+const ID_URL=
+
 class UserInterface{
     constructor(domElements){
         this.domElements=domElements;
@@ -29,22 +33,33 @@ class UserInterface{
 
 }
 class Data{
-    constructor(fetchUrl){
-        this.fetchUrl=fetchUrl;
+    constructor(idFetchUrl,nameFetchUrl){
+        this.idFetchUrl=idFetchUrl;
+        this.nameFetchUrl=nameFetchUrl;
     }
-    fetchMealByName(){
+    fetchMealByName(name){
 
     }
-    fetchMealById(){
+    fetchMealById(id){
 
     }
-    generateSingleMealDataFromId(){
+    generateSingleMealDataFromId(id){
 
     }
-    generateSingleMealDataFromName(){
+    generateSingleMealDataFromName(name){
 
     }
     generateMultipleMealsData(){
 
     }
 }
+class UiDataBridge{//to stay small
+    constructor(uiClass,DataClass){
+        this.DataClass=DataClass;
+        this.uiClass=uiClass;
+    }
+}
+
+const ui=new UserInterface(domElements);
+const mealsData= new Data(NAME_URL,ID_URL);
+const coordinator= new UiDataBridge(ui,mealsData);
