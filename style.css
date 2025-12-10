@@ -4,7 +4,48 @@
     box-sizing: border-box;
 }
 body{
-    font-family: sans-serif;
-    background-color: black;
-    
+font-family: "Arial", sans-serif;
+background-color: #f4f4f4;
+margin: 0;
+padding: 0; 
 }
+.container{
+width: 80%;
+margin: 2rem auto;
+background-color: #fff;
+padding: 1rem;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+h1 {
+text-align: center;
+color: #333;
+margin-bottom: 1rem;
+}
+.search-box {
+display: flex;
+justify-content: center;
+gap: 1rem;
+}
+#search-input {
+padding: 0.5rem 1rem;
+font-size: 1rem;
+border: 1px solid #ccc;
+border-radius: 5px;
+flex: 2;
+}
+#search-btn {
+padding: 0.5rem 1rem;
+background-color: #007BFF;
+color: #fff;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+transition: background-color 0.3s;
+}
+#search-btn:hover {
+background-color: #0056b3;
+}
+.meal-list, .meal-details {
+margin-top: 2rem;
+}
+
