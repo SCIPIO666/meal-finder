@@ -4,6 +4,7 @@ const domElements={
     searchButton: document.querySelector("#search-btn"),
     mealsListContainer: document.querySelector(".meal-list"),
     mealDetailsContainer: document.querySelector(".meal-details"),
+    small: document.querySelector("small"),
 }
 const NAME_URL="https://www.themealdb.com/api/json/v1/1/search.php?s=";
 const ID_URL="https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
@@ -11,9 +12,6 @@ const ID_URL="https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
 class UserInterface{
     constructor(domElements){
         this.domElements=domElements;
-    }
-    searchMealOnClick(meal){
-        
     }
     displayMeal(meal){
 
@@ -31,7 +29,6 @@ class UserInterface{
         return elem;
     }
 
-    }
     displayDetails(mealObject){
       const detailsContainer = this.domElements.mealDetailsContainer;
         const title = this.createElement("h2", "class", "details-title");
@@ -43,7 +40,7 @@ class UserInterface{
         detailsContainer.appendChild(image);
         
         const instructions = this.createElement("p", "class", "instructions");
-       // instructions.textContent = mealObject.strInstructions.substring(0, 300) + '...';
+       // to extract instructions and add content;
         detailsContainer.appendChild(instructions);
 
         // 3. Ingredients Title
@@ -74,27 +71,44 @@ class UserInterface{
 
     }
     createMealCard(mealObject){
-        const ctn=document.createElement("div");
-        ctn.dataset.mealId=mealObject.idMeal;
-        ctn.classList.add("meal-container");
-        const thumbNail=document.createElement("img");
-        const url=mealObject.strMealThumb;
-        thumbNail.setAttribute("href",url);
+        const ctn = this.createElement("div", "class", "meal-card");
+        ctn.dataset.mealId = mealObject.idMeal;
+
+        // Image
+        const thumbNail = this.createElement("img", "src", mealObject.strMealThumb);
         thumbNail.classList.add("thumbnail");
-        const mealTitle=document.createElement("h3");
+
+        // Title
+        const mealTitle = this.createElement("h3", "textContent", mealObject.strMeal);
         mealTitle.classList.add("title");
-        mealTitle.textContent=mealObject.strMeal;
-        const mealsContainer=document.querySelector(".meal-list");
+
+        // Append to card
         ctn.appendChild(thumbNail);
         ctn.appendChild(mealTitle);
-        mealsContainer.appendChild(ctn);
+        
+        return ctn;
     }
-    generateMealsGrid(mealsArray){
+    generateMealsGrid(mealsArray) {
+        const mealsContainer = this.domElements.mealsListContainer;
         mealsArray.forEach(meal => {
-            this.createMealCard(meal);
+            const card = this.createMealCard(meal);
+            mealsContainer.appendChild(card);
         });
     }
+    searchMealOnClick(){
+        const searchButton=this.domElements.searchButton;
+        const meal=this.domElements.searchPanel.textContent;
+        searchButton.addEventListener("click",e=>{
+             if(meal===""){
+                this.domElements.small.textContent="enter meal to search";
+            }else{
+                this.domElements.small.textContent="";
+  
+            }
+        });
 
+       
+    }
 
 }
 class Data{
@@ -170,3 +184,4 @@ const coordinator= new UiDataBridge(ui,mealsData);
 
 //mealsData.fetchMealByName("meat");
 mealsData.fetchMealById(52845);
+ui.searchMealOnClick();
