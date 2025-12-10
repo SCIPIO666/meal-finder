@@ -48,6 +48,7 @@ background-color: #0056b3;
 .meal-list, .meal-details {
 margin-top: 2rem;
 }
+/* meal card */
 .meal-container{
 
 }
@@ -55,6 +56,31 @@ margin-top: 2rem;
 
 }
 .title{
+
+}
+/* details modal */
+.meal-details{
+
+}
+.details-title{
+
+}
+.ingredient-title{
+
+}
+.ingredient-list{
+
+}
+.ingredient-list li{
+
+}
+.instructions-title{
+
+}
+.instructions-list{
+
+}
+.instructions-list li{
 
 }
 
