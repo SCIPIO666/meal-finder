@@ -101,6 +101,8 @@ class UserInterface {
 
         detailsContainer.classList.remove("hide");
         detailsContainer.classList.add("show");
+        const parentContainer=this.domElements.mealsListContainer;
+        parentContainer.innerHTML="";
         
     }
     createMealCard(mealObject) {
