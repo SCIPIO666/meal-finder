@@ -5,6 +5,7 @@ const domElements={
     mealsListContainer: document.querySelector(".meal-list"),
     mealDetailsContainer: document.querySelector(".meal-details"),
    // small: document.querySelector("small"),
+   mealCards: document.querySelectorAll(".meal-card"),
 }
 const NAME_URL="https://www.themealdb.com/api/json/v1/1/search.php?s=";
 const ID_URL="https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
@@ -150,10 +151,6 @@ class UiDataBridge{
         this.uiClass=uiClass;
     }
 
-    displayDataToDom(meal){
-
-    }
-
     determineTypeOfSearch(meal) {
         const digitsOnlyPattern = /^\s*\d+\s*$/; 
         const mealNamePattern = /^[a-zA-Z\s'-]+$/;
@@ -170,6 +167,20 @@ class UiDataBridge{
         }
 
         return "invalid";
+    }
+    async displayMealFromId(id){
+        try{
+
+        }catch(error){
+
+        }
+    }
+    async displayMealFromName(name){
+        try{
+
+        }catch(error){
+
+        }
     }
     searchMealOnClick(){
         const searchButton=this.uiClass.domElements.searchButton;
@@ -191,7 +202,16 @@ class UiDataBridge{
                 }
         });   
     }
+    displayDetailsOnClick(){
+        const allMeals=this.uiClass.domElements.mealCards;
+        allMeals.addEventListener("click",e=>{
+            const mealObject=generateMealObject(e.target);
+            this.uiClass.displayDetails(mealObject);
+        });
+    }
+    closeDetailsModalOnClick(){
 
+    }
 }
 
 const ui=new UserInterface(domElements);
@@ -199,6 +219,5 @@ const mealsData= new Data(NAME_URL,ID_URL);
 const coordinator= new UiDataBridge(ui,mealsData);
 
 coordinator.searchMealOnClick();
-//mealsData.fetchMealByName("meat");
-//mealsData.fetchMealById(52845);
-//ui.searchMealOnClick();
+//coordinator.displayDetailsOnClick();
+//coordinator.closeDetailsModalOnClick();
