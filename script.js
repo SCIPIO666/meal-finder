@@ -6,6 +6,7 @@ const domElements={
     mealDetailsContainer: document.querySelector(".meal-details"),
    // small: document.querySelector("small"),
    mealCards: document.querySelectorAll(".meal-card"),
+   closeButton: document.querySelector("close-btn"),
 }
 const NAME_URL="https://www.themealdb.com/api/json/v1/1/search.php?s=";
 const ID_URL="https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
@@ -16,6 +17,7 @@ class UserInterface{
     }
  
     createElement(element,attribute="",value=""){
+        const elem = document.createElement(element);
         if (attribute) {
             if (attribute === "class") {
                 elem.classList.add(value);
@@ -67,6 +69,8 @@ class UserInterface{
         
         detailsContainer.appendChild(source);  
         detailsContainer.appendChild(sourceVideo);
+        detailsContainer.classList.remove("hide");
+        detailsContainer.classList.add("show");
 
     }
     createMealCard(mealObject){
@@ -84,7 +88,6 @@ class UserInterface{
         // Append to card
         ctn.appendChild(thumbNail);
         ctn.appendChild(mealTitle);
-        
         return ctn;
     }
     generateMealsGrid(mealsArray) {
@@ -115,27 +118,6 @@ class Data{
                 console.log(`No meal found for name: ${name}`);
                 return null; // Return null if no results
             }
-            console.log(data);
-            return data.meals;
-        }catch(error){
-            console.error(error.message);
-
-        }
-
-    }
-    async fetchMealById(id){
-  try{
-            const url=this.idFetchUrl+ id;
-            const response=await fetch(url);
-            console.log(`Fetching from URL: ${url}`);
-            if(!response.ok){
-                throw new Error(`error fetching meal by id: ${response.status}`);
-            }
-            const data= await response.json();
-            if(!data){
-                console.log(`No meal found for id: ${id}`);
-                return null; // Return null if no results
-            }
             console.log(data.meals);
             return data.meals;
         }catch(error){
@@ -144,10 +126,31 @@ class Data{
         }
 
     }
+    async fetchMealById(id){
+         try{
+                const url=this.idFetchUrl+ id;
+                const response=await fetch(url);
+                console.log(`Fetching from URL: ${url}`);
+                if(!response.ok){
+                    throw new Error(`error fetching meal by id: ${response.status}`);
+                }
+                const data= await response.json();
+                if(!data){
+                    console.log(`No meal found for id: ${id}`);
+                    return null; // Return null if no results
+                }
+                console.log(data.meals);
+                return data.meals[0];
+            }catch(error){
+                console.error(error.message);
+
+            }
+
+    }
 }
 class UiDataBridge{
-    constructor(uiClass,DataClass){
-        this.DataClass=DataClass;
+    constructor(uiClass,dataClass){
+        this.dataClass=dataClass;
         this.uiClass=uiClass;
     }
 
@@ -168,49 +171,99 @@ class UiDataBridge{
 
         return "invalid";
     }
-    async displayMealFromId(id){
+    async displayMeal(meal){
+
+        
         try{
-
-        }catch(error){
-
-        }
-    }
-    async displayMealFromName(name){
-        try{
-
-        }catch(error){
-
-        }
-    }
-    searchMealOnClick(){
-        const searchButton=this.uiClass.domElements.searchButton;
-        const meal=this.uiClass.domElements.searchPanel.value.trim();
-        searchButton.addEventListener("click",e=>{
-                const typeOfSearch=this.determineTypeOfSearch(meal);
-                if(typeOfSearch==="invalid"){
-                    //this.alertUser("enter the  meal to search");
-                    console.log("empty")
-                }
-                if(typeOfSearch==="id"){
+              const typeOfSearch=this.determineTypeOfSearch(meal);
+              let meals=null;
+                if(typeOfSearch==="id" ){
                     console.log("search by id")
-                    this.displayMealFromId(meal);
+                    meals=await this.dataClass.fetchMealById(meal);
+                    console.log(meals);
                 }
                 if(typeOfSearch==="meal name"){
                     console.log("search by name")
-                    this.displayMealFromName(meal);
-      
+                    meals=await this.dataClass.fetchMealByName(meal); 
+                    console.log(meals);               
+                }
+
+            this.uiClass.domElements.mealsListContainer.innerHTML = "";
+            if(this.uiClass.domElements.mealDetailsContainer.contains("show")){
+                this.uiClass.domElements.mealDetailsContainer.classList.add("hide");
+                this.uiClass.domElements.mealDetailsContainer.classList.remove("show");
+            }//hide details
+   
+
+            if (!meals|| meals.length === 0) {
+                //no results case
+                this.domElements.mealsListContainer.textContent = "No meals found. Try searching for something else!";
+                return;
+            }
+
+            this.uiClass.generateMealsGrid(meals);
+
+        }catch(error){
+            console.error(error.message);
+        }
+    }
+    delegateMealCardClicks() {
+        this.uiClass.domElements.mealsListContainer.addEventListener("click", async (e) => {
+            const mealCard = e.target.closest('.meal-card');
+            
+            if (mealCard) {
+                const mealObject = await this.generateMealObject(mealCard);
+                if (mealObject) {
+                    this.uiClass.displayDetails(mealObject);
+                }
+            }
+        });
+    }
+    searchMealOnClick(){
+        this.delegateMealCardClicks(); 
+        this.closeDetailsModalOnClick();
+
+
+        const searchButton=this.uiClass.domElements.searchButton;
+        const meal=this.uiClass.domElements.searchPanel.value.trim();
+        searchButton.addEventListener("click",e=>{
+            e.preventDefault();
+                const typeOfSearch=this.determineTypeOfSearch(meal);
+                if(typeOfSearch==="invalid"){
+                    console.log("empty")
+                }
+                if(typeOfSearch==="id" || typeOfSearch==="meal name"){
+                    console.log("search by id/name")
+                    this.displayMeal(meal);
                 }
         });   
+    }
+    async generateMealObject(elem){
+        try {
+            const id=elem.dataset.mealId;
+            const meals=await this.dataClass.fetchMealById(id);
+            const mealObject=meals;
+            return mealObject;
+        } catch (error) {
+            console.error(error.message);
+        }
     }
     displayDetailsOnClick(){
         const allMeals=this.uiClass.domElements.mealCards;
         allMeals.addEventListener("click",e=>{
-            const mealObject=generateMealObject(e.target);
+            const mealObject=this.generateMealObject(e.target);
             this.uiClass.displayDetails(mealObject);
         });
     }
     closeDetailsModalOnClick(){
-
+        const closeButton=this.uiClass.domElements.closeButton;
+        const details=this.uiClass.domElements.mealDetailsContainer;
+        details.addEventListener("click",e=>{
+               if (e.target.closest(".close-btn")) {
+                    details.classList.add("hide");
+                    details.classList.remove("show");
+                }
+        });
     }
 }
 
@@ -221,3 +274,5 @@ const coordinator= new UiDataBridge(ui,mealsData);
 coordinator.searchMealOnClick();
 //coordinator.displayDetailsOnClick();
 //coordinator.closeDetailsModalOnClick();
+
+
