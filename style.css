@@ -8,17 +8,18 @@ font-family: "Arial", sans-serif;
 background-color: #f4f4f4;
 margin: 0;
 padding: 0; 
+background-color: #76153C;
 }
 .container{
 width: 80%;
 margin: 2rem auto;
-background-color: #fff;
+background-color: #76153C;
 padding: 1rem;
 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 h1 {
 text-align: center;
-color: #333;
+color: white;
 margin-bottom: 1rem;
 }
 .search-box {
@@ -77,83 +78,122 @@ margin-top: 2rem;
 .title{
 
 }
-/* details modal */
-.meal-details{
-position: fixed;
-top: 100px;
-left: 50px;
-width: 90vw;
-height: 80vh;
-padding: 20px;
-margin: 10px;
-display: none;
-justify-content: center;
-align-content: center;
-flex-direction: column;
-flex-wrap: wrap;
-z-index: 1000;
-border-radius: 5px;
-overflow-y: scroll;
-border: solid 2px #007BFF;
 
+.meal-details {
+    position: fixed;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    width: 90vw;
+    max-width: 900px; /
+    max-height: 90vh; 
+    background-color: #F8F9F9; 
+    border: solid 2px #007BFF;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); 
+    padding: 20px;
+    overflow-y: auto;
+    display: none; 
+    z-index: 1000;
 }
-.meal-details img{
-    width: 200px;
-    height: 70%;
-    border-radius: 5px;
+
+.meal-details-content {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 20px;
+    margin-top: 10px; 
+}
+
+
+.details-title {
+    width: 100%;
     padding: 10px;
-    margin: 0 20px 0 0;
+    margin-bottom: 10px;
+    background-color: cadetblue;
+    color: darkmagenta;
+    text-align: center;
+    font-size: 2rem;
+    border-radius: 4px;
 }
-.details-title{
-height: 20%;
-width:  300px;
-}
-.ingredient-title,.instructions-title{
+
+.ingredient-title, .instructions-title { 
     font-size: 1.5rem;
-    width: 90%;
-    padding: 10px;
-    margin: 10px;
-    color:#007BFF;
+    width: 100%; 
+    padding: 5px 0;
+    margin: 10px 0;
+    color: #007BFF;
     text-transform: uppercase;
-    
-}
-.ingredient-list,.instructions-list{
-height: 90%;
-padding: 10px;
-width: 30%;
-display: flex;
-flex-wrap: wrap;
-gap: 5px;
-}
-.ingredient-list li,.instructions-list li{
-list-style: none;
-width: 90%;
-padding: 5px;
-}
-.ingredient-list li{
-    background-color: green;
-    color: yellow;
-    border-radius: 5px;
-    width: fit-content;
-}
-.hide{
-display: none;
-}
-.show{
-display: flex;
-}
-.close-btn{
-padding: 10px;
-color: green;
-font-size: 1.2em;
-transition: transform .3s ease-in,color .2s ease-out;
-position: absolute;
-top: 2px;
-right: 5px;
-}
-.close-btn:hover{
-color: greenyellow;
-transform: scale(1.1);
+    border-bottom: 2px solid #EEE;
 }
 
+
+.meal-details ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; 
+}
+
+.ingredient-list li {
+    background: radial-gradient(circle, #7D3C98, #151E3D); 
+    color: #FFF9C4; 
+    border-radius: 50px; 
+    padding: 8px 15px;
+    min-width: 120px; 
+    max-width: 250px;
+    height: fit-content;
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space: normal;
+    word-break: break-word;
+}
+
+.instructions {
+    line-height: 1.6;
+    margin-bottom: 20px;
+    padding: 10px 0;
+}
+.instructions-container {
+    width: 90%; 
+    margin-top: 20px;
+    padding: 20px;
+    background: linear-gradient(to bottom, #F4F6F6, #A9D18E, #5D6D58);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    color: #333333; 
+}
+
+.hide {
+    display: none !important;
+}
+
+.show {
+    display: block; 
+}
+
+.close-btn {
+    padding: 10px;
+    color: #FF0000;
+    font-size: 1.5em; 
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform .3s ease-in, color .2s ease-out;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background: none;
+    border: none;
+    line-height: 1; 
+}
+
+.close-btn:hover {
+    color: #FF6347; 
+    transform: scale(1.1);
+}
 

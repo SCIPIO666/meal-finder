@@ -52,8 +52,8 @@ class UserInterface {
 
         const image = this.createElement("img", "src", mealObject.strMealThumb);
         image.classList.add("details-image");
-        detailsContainer.appendChild(image);
-        //  Ingredients List (Iterating through the data)
+        //detailsContainer.appendChild(image);
+        detailsContainer.style.backgroundImage = `url("${mealObject.strMealThumb}")`;
         const ingredientList = this.createElement("ul", "class", "ingredient-list");
 
         // Iterate through all 20 possible ingredients/measures
@@ -66,6 +66,7 @@ class UserInterface {
                 ingredientList.appendChild(item);
             }
         }
+        detailsContainer.appendChild(ingredientList);
 
         const instructions = this.createElement("div", "class", "instructions-container");
         if(mealObject.strInstructions){
@@ -74,7 +75,7 @@ class UserInterface {
             const steps=mealObject.strInstructions.split(".");
             let stepNumber=0;
             steps.forEach(step=>{
-                const stepElem=this.createElement("p", "class", "instructions");
+                const stepElem=this.createElement("p", "class", "instruction");
                 stepNumber++
                 if(step!==""){
                     stepElem.textContent=stepNumber+"."+step+".";
@@ -90,25 +91,17 @@ class UserInterface {
         const ingredientTitle = this.createElement("h3", "textContent", "Ingredients");
         detailsContainer.appendChild(ingredientTitle);
 
-      
-
-        detailsContainer.appendChild(ingredientList);
         // reference / url source
         const source = this.createElement("p", "textContent", `Source: ${mealObject.strSource || 'Not available'}`);
         const sourceVideo = this.createElement("p", "textContent", `Url: ${mealObject.strYoutube || 'Not available'}`);
-
+        source.classList.add("source");
+        sourceVideo.classList.add("source");
         detailsContainer.appendChild(source);
         detailsContainer.appendChild(sourceVideo);
-
-        // Add a close button if not already in DOM
-        const closeBtn = this.createElement("button", "class", "close-btn");
-        closeBtn.textContent = 'X';
-        detailsContainer.prepend(closeBtn); // Add button at the top
 
         detailsContainer.classList.remove("hide");
         detailsContainer.classList.add("show");
         
-        this.domElements.mealsListContainer.innerHTML = ''; // Hide meal list when showing details
     }
     createMealCard(mealObject) {
         const ctn = this.createElement("div", "class", "meal-card");
