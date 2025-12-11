@@ -93,15 +93,7 @@ class UserInterface{
             mealsContainer.appendChild(card);
         });
     }
-    searchMealOnClick(){
-        const searchButton=this.domElements.searchButton;
-        const meal=this.domElements.searchPanel.value.trim();
-        searchButton.addEventListener("click",e=>{
-            console.log(typeof(meal));
-            console.log(meal)
-      
-        });   
-    }
+    
 
 }
 class Data{
@@ -152,14 +144,52 @@ class Data{
 
     }
 }
-class UiDataBridge{//to stay small
+class UiDataBridge{
     constructor(uiClass,DataClass){
         this.DataClass=DataClass;
         this.uiClass=uiClass;
     }
 
-    addDomEvents(){
+    displayDataToDom(meal){
+
+    }
+
+    determineTypeOfSearch(meal) {
+        const digitsOnlyPattern = /^\s*\d+\s*$/; 
+        const mealNamePattern = /^[a-zA-Z\s'-]+$/;
+        if (!meal) {
+            return "invalid";
+        }
+
+        if (digitsOnlyPattern.test(meal)) {
+            return "id";
+        }
         
+        if (mealNamePattern.test(meal)) {
+            return "meal name";
+        }
+
+        return "invalid";
+    }
+    searchMealOnClick(){
+        const searchButton=this.uiClass.domElements.searchButton;
+        const meal=this.uiClass.domElements.searchPanel.value.trim();
+        searchButton.addEventListener("click",e=>{
+                const typeOfSearch=this.determineTypeOfSearch(meal);
+                if(typeOfSearch==="invalid"){
+                    //this.alertUser("enter the  meal to search");
+                    console.log("empty")
+                }
+                if(typeOfSearch==="id"){
+                    console.log("search by id")
+                    this.displayMealFromId(meal);
+                }
+                if(typeOfSearch==="meal name"){
+                    console.log("search by name")
+                    this.displayMealFromName(meal);
+      
+                }
+        });   
     }
 
 }
@@ -168,7 +198,7 @@ const ui=new UserInterface(domElements);
 const mealsData= new Data(NAME_URL,ID_URL);
 const coordinator= new UiDataBridge(ui,mealsData);
 
-ui.searchMealOnClick();
+coordinator.searchMealOnClick();
 //mealsData.fetchMealByName("meat");
 //mealsData.fetchMealById(52845);
 //ui.searchMealOnClick();
