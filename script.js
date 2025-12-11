@@ -53,17 +53,7 @@ class UserInterface {
         const image = this.createElement("img", "src", mealObject.strMealThumb);
         image.classList.add("details-image");
         detailsContainer.appendChild(image);
-
-        const instructions = this.createElement("p", "class", "instructions");
-        // to extract instructions and add content;
-        instructions.textContent = mealObject.strInstructions || 'Instructions not available.'; // CORRECTION: Extract instructions content
-        detailsContainer.appendChild(instructions);
-
-        // 3. Ingredients Title
-        const ingredientTitle = this.createElement("h3", "textContent", "Ingredients");
-        detailsContainer.appendChild(ingredientTitle);
-
-        // 4. Ingredients List (Iterating through the data)
+        //  Ingredients List (Iterating through the data)
         const ingredientList = this.createElement("ul", "class", "ingredient-list");
 
         // Iterate through all 20 possible ingredients/measures
@@ -76,6 +66,31 @@ class UserInterface {
                 ingredientList.appendChild(item);
             }
         }
+
+        const instructions = this.createElement("div", "class", "instructions-container");
+        if(mealObject.strInstructions){
+            const heading = this.createElement("h3", "textContent", "RECIPE");
+            instructions.appendChild(heading);
+            const steps=mealObject.strInstructions.split(".");
+            let stepNumber=0;
+            steps.forEach(step=>{
+                const stepElem=this.createElement("p", "class", "instructions");
+                stepNumber++
+                if(step!==""){
+                    stepElem.textContent=stepNumber+"."+step+".";
+                    instructions.appendChild(stepElem);
+                }
+
+            })
+        }
+
+        detailsContainer.appendChild(instructions);
+
+        //  Ingredients Title
+        const ingredientTitle = this.createElement("h3", "textContent", "Ingredients");
+        detailsContainer.appendChild(ingredientTitle);
+
+      
 
         detailsContainer.appendChild(ingredientList);
         // reference / url source
@@ -274,14 +289,11 @@ class UiDataBridge {
         }
     }
     closeDetailsModalOnClick() {
-        const details = this.uiClass.domElements.mealDetailsContainer;
-        details.addEventListener("click", e => {
-            if (e.target.closest(".close-btn")) {
+        const closeButton = this.uiClass.domElements.closeButton;
+        const details=this.uiClass.domElements.detailsContainer;
+        closeButton.addEventListener("click", e => {
                 details.classList.add("hide");
                 details.classList.remove("show");
-                // Optional--Show the meal list again if desired
-                // this.uiClass.domElements.mealsListContainer.innerHTML = 'Perform another search or click a meal.'; 
-            }
         });
     }
 }

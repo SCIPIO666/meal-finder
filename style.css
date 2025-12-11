@@ -79,37 +79,81 @@ margin-top: 2rem;
 }
 /* details modal */
 .meal-details{
+position: fixed;
+top: 100px;
+left: 50px;
+width: 90vw;
+height: 80vh;
+padding: 20px;
+margin: 10px;
+display: none;
+justify-content: center;
+align-content: center;
+flex-direction: column;
+flex-wrap: wrap;
+z-index: 1000;
+border-radius: 5px;
+overflow-y: scroll;
+border: solid 2px #007BFF;
 
+}
+.meal-details img{
+    width: 200px;
+    height: 70%;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 0 20px 0 0;
 }
 .details-title{
-
+height: 20%;
+width:  300px;
 }
-.ingredient-title{
-
+.ingredient-title,.instructions-title{
+    font-size: 1.5rem;
+    width: 90%;
+    padding: 10px;
+    margin: 10px;
+    color:#007BFF;
+    text-transform: uppercase;
+    
 }
-.ingredient-list{
-
+.ingredient-list,.instructions-list{
+height: 90%;
+padding: 10px;
+width: 30%;
+display: flex;
+flex-wrap: wrap;
+gap: 5px;
+}
+.ingredient-list li,.instructions-list li{
+list-style: none;
+width: 90%;
+padding: 5px;
 }
 .ingredient-list li{
-
-}
-.instructions-title{
-
-}
-.instructions-list{
-
-}
-.instructions-list li{
-
+    background-color: green;
+    color: yellow;
+    border-radius: 5px;
+    width: fit-content;
 }
 .hide{
-
+display: none;
 }
 .show{
-
+display: flex;
 }
 .close-btn{
-
+padding: 10px;
+color: green;
+font-size: 1.2em;
+transition: transform .3s ease-in,color .2s ease-out;
+position: absolute;
+top: 2px;
+right: 5px;
+}
+.close-btn:hover{
+color: greenyellow;
+transform: scale(1.1);
 }
 
 
