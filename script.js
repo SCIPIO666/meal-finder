@@ -4,7 +4,7 @@ const domElements={
     searchButton: document.querySelector("#search-btn"),
     mealsListContainer: document.querySelector(".meal-list"),
     mealDetailsContainer: document.querySelector(".meal-details"),
-    small: document.querySelector("small"),
+   // small: document.querySelector("small"),
 }
 const NAME_URL="https://www.themealdb.com/api/json/v1/1/search.php?s=";
 const ID_URL="https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
@@ -13,9 +13,7 @@ class UserInterface{
     constructor(domElements){
         this.domElements=domElements;
     }
-    displayMeal(meal){
-
-    }
+ 
     createElement(element,attribute="",value=""){
         if (attribute) {
             if (attribute === "class") {
@@ -97,17 +95,12 @@ class UserInterface{
     }
     searchMealOnClick(){
         const searchButton=this.domElements.searchButton;
-        const meal=this.domElements.searchPanel.textContent;
+        const meal=this.domElements.searchPanel.value.trim();
         searchButton.addEventListener("click",e=>{
-             if(meal===""){
-                this.domElements.small.textContent="enter meal to search";
-            }else{
-                this.domElements.small.textContent="";
-  
-            }
-        });
-
-       
+            console.log(typeof(meal));
+            console.log(meal)
+      
+        });   
     }
 
 }
@@ -158,30 +151,24 @@ class Data{
         }
 
     }
-    matchMealsWithIds(){
-
-    }
-    generateSingleMealDataFromId(id){
-
-    }
-    generateSingleMealDataFromName(name){
-
-    }
-    generateMultipleMealsData(){
-
-    }
 }
 class UiDataBridge{//to stay small
     constructor(uiClass,DataClass){
         this.DataClass=DataClass;
         this.uiClass=uiClass;
     }
+
+    addDomEvents(){
+        
+    }
+
 }
 
 const ui=new UserInterface(domElements);
 const mealsData= new Data(NAME_URL,ID_URL);
 const coordinator= new UiDataBridge(ui,mealsData);
 
-//mealsData.fetchMealByName("meat");
-mealsData.fetchMealById(52845);
 ui.searchMealOnClick();
+//mealsData.fetchMealByName("meat");
+//mealsData.fetchMealById(52845);
+//ui.searchMealOnClick();
