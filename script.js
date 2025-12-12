@@ -287,11 +287,10 @@ class UiDataBridge {
         }
     }
     closeDetailsModalOnClick() {
-        const details = this.uiClass.domElements.detailsContainer;
+        const details = this.uiClass.domElements.mealDetailsContainer;
         details.addEventListener("click", e => {
             const close = e.target.closest(".close-btn"); 
             if (close) {
-                 e.stopPropagation(); 
                 details.classList.add("hide");
                 details.classList.remove("show");
             }
