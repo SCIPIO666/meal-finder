@@ -66,6 +66,9 @@ class UserInterface {
                 ingredientList.appendChild(item);
             }
         }
+               //  Ingredients Title
+        const ingredientTitle = this.createElement("h3", "textContent", "Ingredients");
+        detailsContainer.appendChild(ingredientTitle);
         detailsContainer.appendChild(ingredientList);
 
         const instructions = this.createElement("div", "class", "instructions-container");
@@ -87,15 +90,14 @@ class UserInterface {
 
         detailsContainer.appendChild(instructions);
 
-        //  Ingredients Title
-        const ingredientTitle = this.createElement("h3", "textContent", "Ingredients");
-        detailsContainer.appendChild(ingredientTitle);
-
         // reference / url source
-        const source = this.createElement("p", "textContent", `Source: ${mealObject.strSource || 'Not available'}`);
-        const sourceVideo = this.createElement("p", "textContent", `Url: ${mealObject.strYoutube || 'Not available'}`);
-        source.classList.add("source");
-        sourceVideo.classList.add("source");
+        const recipeUrl=mealObject.strSource || 'Not available';
+        const videoUrl =mealObject.strYoutube || 'Not available';
+        
+        const source = this.createElement("p", "class","source");
+        source.innerHTML=`source: <link href=${recipeUrl }>${recipeUrl }</link>`;
+        const sourceVideo = this.createElement("p", "class", "source");
+        sourceVideo.innerHTML=`video: <link href=${videoUrl }>${videoUrl}</link>`;
         detailsContainer.appendChild(source);
         detailsContainer.appendChild(sourceVideo);
 

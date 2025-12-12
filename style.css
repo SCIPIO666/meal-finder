@@ -69,6 +69,7 @@ display: flex;
 flex-wrap: wrap;
 align-items: center;
 justify-content: center;
+color: #F7F9F9; 
 padding: 20px;
 margin: 1rem 10px;
 height: 80%;
@@ -105,11 +106,10 @@ text-align: center;
 
 .meal-details {
     position: fixed;
-    top: 50%; 
-    left: 50%;
-    transform: translate(-50%, -50%); 
+    top: 50px; 
+    left: 17%;
     width: 90vw;
-    max-width: 900px; /
+    max-width: 900px; 
     max-height: 90vh; 
     background-color: #F8F9F9; 
     border: solid 2px #5D6D58; 
@@ -150,12 +150,13 @@ text-align: center;
     text-transform: uppercase;
     border-bottom: 2px solid #EAF2F8;
 }
+.meal-details ul h2,.meal-details ul h3{
 
-
+}
 .meal-details ul {
     list-style: none;
-    padding: 0;
-    margin: 0;
+    padding: 5px;
+    margin: 3px;
     display: flex;
     flex-wrap: wrap;
     gap: 10px; 
@@ -196,7 +197,7 @@ text-align: center;
 }
 
 .hide {
-    display: none !important;
+    display: none;
 }
 
 .show {
@@ -218,7 +219,16 @@ text-align: center;
     line-height: 1; 
 }
 
-.close-btn:hover {
+.close-btn:hover{
     color: #FF6347; 
     transform: scale(1.1);
+
+}
+.source{
+    padding: 5px;
+    background-color: #1A232F;
+    color: #ccc;
+    border-radius: 5px;
+    margin: 10px;
+    
 }
