@@ -91,8 +91,18 @@ box-shadow: 1px 3px 12px rgba(0, 0, 0, 0.5);
 border-radius: 5px;
 padding: 15px;
 margin: 10px;
-background-color: #34495E; /* Medium Slate Blue for cards */
+background-color: #34495E;
+transition: transform .3s ease-in-out,box-shadow .3s ease-in-out,border-color .2s ease-in-out;
 }
+ .meal-card:hover{
+    transform: scale(1.05); 
+    box-shadow: 
+        0 0 15px rgba(52, 152, 219, 0.8),
+        0 0 30px rgba(52, 152, 219, 0.6),
+        1px 3px 12px rgba(0, 0, 0, 0.7); 
+    border-color: #3498DB; 
+}   
+
 .thumbnail{
     height: 75%;
     width: 95%;
@@ -151,7 +161,13 @@ text-align: center;
     border-bottom: 2px solid #EAF2F8;
 }
 .meal-details ul h2,.meal-details ul h3{
-
+ font-size: 1.5rem;
+    width: 100%; 
+    padding: 5px 0;
+    margin: 10px 0;
+    color: #7D3C98; 
+    text-transform: uppercase;
+    border-bottom: 2px solid #EAF2F8;
 }
 .meal-details ul {
     list-style: none;
@@ -178,8 +194,18 @@ text-align: center;
     align-items: center;
     white-space: normal;
     word-break: break-word;
+ transition: 
+        transform 0.25s ease-out, 
+        background 0.25s ease-out,
+        box-shadow 0.25s ease-out;
 }
-
+.ingredient-list li:hover {
+    transform: translateY(-2px) scale(1.02);
+    background: radial-gradient(circle, #9B59B6, #1C2849);
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.4),
+        0 0 10px rgba(125, 60, 152, 0.6); 
+}
 .instructions {
     line-height: 1.6;
     margin-bottom: 20px;
@@ -209,12 +235,13 @@ text-align: center;
     color: #FF0000;
     font-size: 1.5em; 
     font-weight: bold;
+    border-radius: 5px;
     cursor: pointer;
     transition: transform .3s ease-in, color .2s ease-out;
     position: absolute;
     top: 5px;
     right: 10px;
-    background: none;
+    background-color: #3498DB;
     border: none;
     line-height: 1; 
 }
@@ -230,5 +257,18 @@ text-align: center;
     color: #ccc;
     border-radius: 5px;
     margin: 10px;
-    
+        width: 90%; 
+        box-shadow: 1px 13px 12px rgba(0, 0, 0, 0.5);
+        transition: color .2s ease-in-out,text-decoration .3s ease-in-out;
+
 }
+.source link:hover{
+color: #A9D18E;
+text-decoration: underline;
+}
+.source link:active{
+color: #FF6347;
+text-decoration: none;
+}
+
+
