@@ -141,7 +141,7 @@ text-align: center;
 
 
 .details-title {
-    width: 100%;
+    width: 90%;
     padding: 10px;
     margin-bottom: 10px;
     background-color: #A9D18E; 
@@ -160,12 +160,13 @@ text-align: center;
     text-transform: uppercase;
     border-bottom: 2px solid #EAF2F8;
 }
-.meal-details ul h2,.meal-details ul h3{
+.meal-details h2,.meal-details h3{
  font-size: 1.5rem;
-    width: 100%; 
+    width: 90%; 
     padding: 5px 0;
     margin: 10px 0;
-    color: #7D3C98; 
+        color: black;
+    /* color: #7D3C98;  */
     text-transform: uppercase;
     border-bottom: 2px solid #EAF2F8;
 }
@@ -177,8 +178,11 @@ text-align: center;
     flex-wrap: wrap;
     gap: 10px; 
 }
-
-.ingredient-list li {
+.ingredient-list{
+    width: 90%;
+    padding: 5px;
+}
+ li {
     background: radial-gradient(circle, #7D3C98, #151E3D); 
     color: #F4F6F6; 
     border-radius: 50px; 
@@ -215,11 +219,14 @@ text-align: center;
 .instructions-container {
     width: 90%; 
     margin-top: 20px;
+    font-weight: bold;
     padding: 20px;
-    background: linear-gradient(to bottom, #F4F6F6, #A9D18E, #5D6D58);
+    /* New Gradient: Deep Blues and Purples */
+    background: linear-gradient(to bottom, #1E3C72, #2A5298, #4B79A1);
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    color: #333333; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); 
+    /* New Text Color: Contrasting White */
+    color: #FFFFFF; 
 }
 
 .hide {
@@ -232,18 +239,23 @@ text-align: center;
 
 .close-btn {
     padding: 10px;
-    color: #FF0000;
+    color: white;
     font-size: 1.5em; 
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 1px 3px 12px rgba(0, 0, 0, 0.5);
     font-weight: bold;
-    border-radius: 5px;
     cursor: pointer;
     transition: transform .3s ease-in, color .2s ease-out;
     position: absolute;
-    top: 5px;
+    top: 10px;
     right: 10px;
     background-color: #3498DB;
     border: none;
     line-height: 1; 
+    z-index: 5000;
+    text-align: center;
 }
 
 .close-btn:hover{
@@ -262,9 +274,13 @@ text-align: center;
         transition: color .2s ease-in-out,text-decoration .3s ease-in-out;
 
 }
+.source link{
+    cursor: pointer;
+}
 .source link:hover{
 color: #A9D18E;
 text-decoration: underline;
+cursor: pointer;
 }
 .source link:active{
 color: #FF6347;

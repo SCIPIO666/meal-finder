@@ -3,9 +3,7 @@ const domElements = {
     searchButton: document.querySelector("#search-btn"),
     mealsListContainer: document.querySelector(".meal-list"),
     mealDetailsContainer: document.querySelector(".meal-details"),
-    // small: document.querySelector("small"),
     mealCards: document.querySelectorAll(".meal-card"),
-    closeButton: document.querySelector(".close-btn"), // CORRECTION: Use class selector for consistency
 }
 const NAME_URL = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
 const ID_URL = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
@@ -29,7 +27,7 @@ class UserInterface {
         return elem;
     }
 
-    displayMeal(mealsArray) { // New method to handle result rendering
+    displayMeal(mealsArray) { 
         this.domElements.mealsListContainer.innerHTML = ''; // Clear previous results
         this.domElements.mealDetailsContainer.classList.add("hide"); // Hide details view
 
@@ -46,6 +44,9 @@ class UserInterface {
         const detailsContainer = this.domElements.mealDetailsContainer;
         detailsContainer.innerHTML = ""; // Clear previous content
 
+        const closeBtn=this.createElement("div","class","close-btn");
+        closeBtn.textContent="x";
+        detailsContainer.appendChild(closeBtn);
         const title = this.createElement("h2", "class", "details-title");
         title.textContent = mealObject.strMeal;
         detailsContainer.appendChild(title);
@@ -66,14 +67,15 @@ class UserInterface {
                 ingredientList.appendChild(item);
             }
         }
-               //  Ingredients Title
+
+        //  Ingredients Title
         const ingredientTitle = this.createElement("h3", "textContent", "Ingredients");
         detailsContainer.appendChild(ingredientTitle);
         detailsContainer.appendChild(ingredientList);
 
         const instructions = this.createElement("div", "class", "instructions-container");
         if(mealObject.strInstructions){
-            const heading = this.createElement("h3", "textContent", "RECIPE");
+            const heading = this.createElement("h3", "textContent", "INSTRUCTIONS");
             instructions.appendChild(heading);
             const steps=mealObject.strInstructions.split(".");
             let stepNumber=0;
@@ -84,7 +86,6 @@ class UserInterface {
                     stepElem.textContent=stepNumber+"."+step+".";
                     instructions.appendChild(stepElem);
                 }
-
             })
         }
 
@@ -286,11 +287,14 @@ class UiDataBridge {
         }
     }
     closeDetailsModalOnClick() {
-        const closeButton = this.uiClass.domElements.closeButton;
-        const details=this.uiClass.domElements.detailsContainer;
-        closeButton.addEventListener("click", e => {
+        const details = this.uiClass.domElements.detailsContainer;
+        details.addEventListener("click", e => {
+            const close = e.target.closest(".close-btn"); 
+            if (close) {
+                 e.stopPropagation(); 
                 details.classList.add("hide");
                 details.classList.remove("show");
+            }
         });
     }
 }
