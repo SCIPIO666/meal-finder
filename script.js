@@ -105,7 +105,7 @@ class UserInterface {
         detailsContainer.classList.remove("hide");
         detailsContainer.classList.add("show");
         const parentContainer=this.domElements.mealsListContainer;
-        parentContainer.innerHTML="";
+        parentContainer.classList.add("hide");
         
     }
     createMealCard(mealObject) {
@@ -125,12 +125,17 @@ class UserInterface {
         ctn.appendChild(mealTitle);
         return ctn;
     }
+    
     generateMealsGrid(mealsArray) {
         const mealsContainer = this.domElements.mealsListContainer;
         mealsArray.forEach(meal => {
             const card = this.createMealCard(meal);
             mealsContainer.appendChild(card);
         });
+    }
+    restoreGrid(){
+      const grid=this.domElements.mealsListContainer;
+      grid.classList.remove("hide");
     }
 
 
@@ -260,6 +265,10 @@ class UiDataBridge {
         });
     }
     searchMealOnClick() {
+        this.uiClass.currentMeal={
+            id: "",
+            name: "",
+        }
         const searchButton = this.uiClass.domElements.searchButton;
         searchButton.addEventListener("click", e => {
             e.preventDefault();
@@ -276,6 +285,7 @@ class UiDataBridge {
             }
         });
     }
+
     async generateMealObject(elem) {
         try {
             const id = elem.dataset.mealId;
@@ -293,6 +303,7 @@ class UiDataBridge {
             if (close) {
                 details.classList.add("hide");
                 details.classList.remove("show");
+                   this.uiClass.restoreGrid();
             }
         });
     }
